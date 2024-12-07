@@ -3,7 +3,13 @@ const data = new TextDecoder().decode(raw);
 
 let instructions = data
   .match(/(do\(\))|(don\'t\(\))|(mul\(\d+,\d+\))/g)
-  .flatMap((matched) => matched.startsWith("mul") ? [...matched.matchAll(/(\d+),(\d+)/g)].map(captured => captured.slice(1,3).map(Number)) : matched)
+  .flatMap((matched) =>
+    matched.startsWith("mul")
+      ? [...matched.matchAll(/(\d+),(\d+)/g)].map((captured) =>
+          captured.slice(1, 3).map(Number),
+        )
+      : matched,
+  );
 
 let can_do = true;
 let sums = [];
